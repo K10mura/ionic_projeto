@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@capacitor/preferences": "^8.0.1"
-  }
-}
