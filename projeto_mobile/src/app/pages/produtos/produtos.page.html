@@ -1,24 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Catálogo de Produtos</ion-title>
+    <ion-title>Produtos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Spinner exibido enquanto aguarda a API -->
+  <!-- Ao puxar a lista para baixo, o Ionic envia o evento para carregarProdutos(). -->
+  <ion-refresher slot="fixed" (ionRefresh)="carregarProdutos($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- *ngIf cria o spinner apenas enquanto a lista está sendo carregada. -->
   <div *ngIf="carregando" class="ion-text-center ion-padding">
     <ion-spinner name="crescent"></ion-spinner>
-    <p>Carregando produtos da API...</p>
+    <p>Carregando produtos...</p>
   </div>
 
-  <!-- Lista dinâmica de produtos retornados da API Node -->
-  <ion-list *ngIf="!carregando">
-    <ion-item *ngFor="let item of produtos">
+  <!-- A lista só aparece depois da busca, evitando exibir uma lista vazia durante o carregamento. -->
+  <ion-list *ngIf="!carregando && produtos.length > 0">
+    <!-- *ngFor repete este item uma vez para cada produto recebido da API ou do cache. -->
+    <ion-item *ngFor="let produto of produtos">
       <ion-label>
-        <h2>{{ item.nome }}</h2>
-        <p>Categoria: {{ item.categoria }}</p>
+        <h2>{{ produto.nome }}</h2>
+        <p>Categoria: {{ produto.categoria }}</p>
       </ion-label>
-      <ion-badge slot="end" color="success">R$ {{ item.preco.toFixed(2) }}</ion-badge>
+
+      <!-- O pipe currency formata o preço para exibição ao usuário. -->
+      <ion-badge slot="end" color="success">
+        {{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}
+      </ion-badge>
+
+      <!-- Ao tocar, o id do produto é enviado para a confirmação de exclusão. -->
+      <ion-button slot="end" fill="clear" color="danger" (click)="confirmarExclusao(produto.id)">
+        Excluir
+      </ion-button>
     </ion-item>
   </ion-list>
+
+  <!-- Esta mensagem aparece apenas quando a busca terminou sem retornar produtos. -->
+  <p *ngIf="!carregando && produtos.length === 0" class="ion-text-center ion-padding">
+    Nenhum produto encontrado.
+  </p>
 </ion-content>

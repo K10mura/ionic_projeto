@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Configurações do App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <!-- [(ngModel)] faz a ligação em dois sentidos:
+         o valor de modoEscuro atualiza o toggle e a interação atualiza a variável. -->
+    <ion-item lines="full">
+      <ion-toggle [(ngModel)]="modoEscuro">Modo Escuro (Noturno)</ion-toggle>
+    </ion-item>
+
+    <!-- O mesmo [(ngModel)] mantém o conteúdo do campo sincronizado com emailSalvo. -->
+    <ion-item lines="full">
+      <ion-input label="Lembrar E-mail" labelPlacement="stacked" type="email" [(ngModel)]="emailSalvo" placeholder="Digite seu e-mail"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <!-- (click) chama o método TypeScript somente quando o usuário pressiona o botão. -->
+  <ion-button expand="block" color="primary" class="ion-margin-top" (click)="salvarConfiguracoes()">
+    Salvar Preferências
+  </ion-button>
+</ion-content>
