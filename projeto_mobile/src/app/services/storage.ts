@@ -4,11 +4,10 @@ import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   // Permite injetar este serviço em qualquer página sem cadastrá-lo manualmente.
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
-
-  constructor() { }
+  constructor() {}
 
   // A chave identifica o valor salvo; use sempre o mesmo texto para recuperá-lo depois.
   // "any" permite salvar booleanos, textos, números, objetos e arrays neste exemplo.
@@ -16,7 +15,7 @@ export class StorageService {
     await Preferences.set({
       key: chave,
       // Preferences só armazena texto; JSON transforma outros tipos em texto.
-      value: JSON.stringify(valor)
+      value: JSON.stringify(valor),
     });
   }
 
@@ -48,26 +47,25 @@ export class StorageService {
   async limparTudo(): Promise<void> {
     await Preferences.clear();
   }
-  // Adicionar dentro da classe StorageService:
 
-// Cada pendência pode representar uma ação que será enviada ao servidor depois.
-// Exemplo: { tipo: 'criar-produto', dados: novoProduto }.
-async adicionarPendencia(item: any): Promise<void> {
-  // Se a fila ainda não existir, começa com um array vazio.
-  const pendencias = (await this.obter<any[]>('pendencias_offline')) || [];
-  // push adiciona a nova ação ao final, preservando as pendências já armazenadas.
-  pendencias.push(item);
-  // Salva o array inteiro novamente porque o storage grava um valor por chave.
-  await this.salvar('pendencias_offline', pendencias);
-}
+  // Cada pendência pode representar uma ação que será enviada ao servidor depois.
+  // Exemplo: { tipo: 'criar-produto', dados: novoProduto }.
+  async adicionarPendencia(item: any): Promise<void> {
+    // Se a fila ainda não existir, começa com um array vazio.
+    const pendencias = (await this.obter<any[]>('pendencias_offline')) || [];
+    // push adiciona a nova ação ao final, preservando as pendências já armazenadas.
+    pendencias.push(item);
+    // Salva o array inteiro novamente porque o storage grava um valor por chave.
+    await this.salvar('pendencias_offline', pendencias);
+  }
 
-// Retorna uma lista pronta para percorrer, mesmo que não haja itens pendentes.
-async obterPendencias(): Promise<any[]> {
-  return (await this.obter<any[]>('pendencias_offline')) || [];
-}
+  // Retorna uma lista pronta para percorrer, mesmo que não haja itens pendentes.
+  async obterPendencias(): Promise<any[]> {
+    return (await this.obter<any[]>('pendencias_offline')) || [];
+  }
 
-// Execute somente depois de confirmar que todas as ações foram sincronizadas.
-async limparPendencias(): Promise<void> {
-  await this.remover('pendencias_offline');
-}
+  // Execute somente depois de confirmar que todas as ações foram sincronizadas.
+  async limparPendencias(): Promise<void> {
+    await this.remover('pendencias_offline');
+  }
 }

@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonList, 
-  IonItem, 
-  IonLabel, 
-  IonBadge, 
-  IonButton, 
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonBadge,
+  IonButton,
   IonSpinner,
-  IonRefresher, 
-  IonRefresherContent 
+  IonRefresher,
+  IonRefresherContent
 } from '@ionic/angular/standalone';
 import { ToastController, AlertController } from '@ionic/angular/standalone';
 import { Produto, ProdutoService } from 'src/app/services/produto';
+
 
 @Component({
   selector: 'app-produtos',
@@ -26,17 +27,17 @@ import { Produto, ProdutoService } from 'src/app/services/produto';
     CommonModule,
     // Necessário para o pipe currency usado no HTML para formatar o preço.
     CurrencyPipe,
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    IonList, 
-    IonItem, 
-    IonLabel, 
-    IonBadge, 
-    IonButton, 
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonBadge,
+    IonButton,
     IonSpinner,
-    IonRefresher, 
+    IonRefresher,
     IonRefresherContent
   ]
 })
@@ -108,10 +109,10 @@ export class ProdutosPage implements OnInit {
   remover(id: number) {
     this.produtoService.excluirProduto(id).subscribe({
       next: async () => {
-        const toast = await this.toastCtrl.create({ 
-          message: 'Produto excluído com sucesso!', 
-          duration: 2000, 
-          color: 'success' 
+        const toast = await this.toastCtrl.create({
+          message: 'Produto excluído com sucesso!',
+          duration: 2000,
+          color: 'success'
         });
         toast.present();
         this.carregarProdutos();

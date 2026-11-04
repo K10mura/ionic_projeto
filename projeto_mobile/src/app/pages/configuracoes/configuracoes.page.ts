@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonList, 
-  IonItem, 
-  IonLabel, 
-  IonToggle, 
-  IonInput, 
-  IonButton 
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonToggle,
+  IonInput,
+  IonButton
 } from '@ionic/angular/standalone';
 import { StorageService } from 'src/app/services/storage';
 
@@ -21,17 +21,17 @@ import { StorageService } from 'src/app/services/storage';
   styleUrls: ['./configuracoes.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    IonList, 
-    IonItem, 
-    IonLabel, 
-    IonToggle, 
-    IonInput, 
+    CommonModule,
+    FormsModule,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonToggle,
+    IonInput,
     IonButton
   ]
 })
