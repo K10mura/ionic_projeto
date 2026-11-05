@@ -1,4 +1,4 @@
-<!-- Cabeçalho Superior Fixo da Tela -->
+<!-- O cabeçalho permanece visível enquanto o conteúdo da tela pode rolar. -->
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Portal Mobile</ion-title>
@@ -7,7 +7,6 @@
 
 <!-- Conteúdo Principal Rolável -->
 <ion-content class="ion-padding custom-background">
-  <!-- Container responsivo que centraliza o conteúdo em telas maiores -->
   <div class="login-container">
     
     <!-- Cartão de formulário principal -->
@@ -18,54 +17,30 @@
       </ion-card-header>
 
       <ion-card-content>
+        <!-- [(ngModel)] mantém o campo e a variável email sincronizados nos dois sentidos. -->
         <ion-item lines="full" class="custom-item">
-          <ion-input label="E-mail" labelPlacement="stacked" type="email" placeholder="seu.email@exemplo.com"></ion-input>
+          <ion-input label="E-mail" labelPlacement="stacked" type="email" [(ngModel)]="email" placeholder="seu.email@exemplo.com"></ion-input>
         </ion-item>
 
-        <!-- Campo Senha com rótulo embutido -->
+        <!-- type="password" mascara o texto na tela; isso não substitui a segurança no servidor. -->
         <ion-item lines="full" class="custom-item">
-          <ion-input label="Senha" labelPlacement="stacked" type="password" placeholder="Digite sua senha"></ion-input>
+          <ion-input label="Senha" labelPlacement="stacked" type="password" [(ngModel)]="senha" placeholder="Digite sua senha"></ion-input>
         </ion-item>
 
-        <!-- Botão com envio de parâmetro -->
-        <ion-button expand="block" color="primary" class="ion-margin-top" (click)="entrarComId(42)">
-          Entrar (ID: 42)
+        <!-- (click) chama o método TypeScript; [disabled] bloqueia um segundo envio enquanto carregando for true. -->
+        <ion-button expand="block" color="primary" class="ion-margin-top" (click)="executarLogin()" [disabled]="carregando">
+          <!-- *ngIf adiciona o spinner somente durante a requisição. -->
+          <ion-spinner *ngIf="carregando" name="crescent"></ion-spinner>
+          <!-- O texto "Entrar" volta a aparecer quando carregando for false. -->
+          <span *ngIf="!carregando">Entrar</span>
         </ion-button>
 
-        <!-- Botão com navegação simples -->
+        <!-- Botão de cadastro -->
         <ion-button expand="block" fill="outline" color="secondary" class="ion-margin-top" (click)="irParaCadastro()">
           Criar Conta
         </ion-button>
       </ion-card-content>
     </ion-card>
-
-    <!-- Componente reutilizável da Aula 05 -->
-    <app-card-status
-      titulo="Conexão de Rede"
-      subtitulo="Monitoramento da API em tempo real"
-      status="Conectado"
-      corStatus="success">
-      <p>Sua API Node/Express está operando normalmente na porta 3000.</p>
-    </app-card-status>
-
-    <!-- Lista informativa da Aula 03 -->
-    <ion-list class="info-list ion-margin-top">
-      <ion-item>
-        <ion-label>
-          <h2>Status da API</h2>
-          <p>Backend Node/Express ativo</p>
-        </ion-label>
-        <ion-badge slot="end" color="success">Online</ion-badge>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>
-          <h2>Versão do App</h2>
-          <p>Ionic Angular Standalone</p>
-        </ion-label>
-        <ion-badge slot="end" color="tertiary">v1.0.0</ion-badge>
-      </ion-item>
-    </ion-list>
 
   </div>
 </ion-content>

@@ -48,3 +48,8 @@ ion-button {
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
+ion-input {
+  --color: #1e293b;
+  --placeholder-color: #64748b;
+  --highlight-color-focused: var(--ion-color-primary);
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth';
+import { Router } from '@angular/router';
 import { 
   IonContent, 
   IonHeader, 
@@ -46,8 +48,11 @@ export class PerfilPage implements OnInit, OnDestroy {
   private inscricao: Subscription = new Subscription();
 
   // Injeção de dependência do serviço no construtor
-  constructor(private usuarioService: UsuarioService) { }
-
+  constructor(
+  private usuarioService: UsuarioService,
+  private authService: AuthService,
+  private router: Router
+) { }
   ngOnInit() {
     // Inscrição reativa para ouvir alterações no perfil do usuário em tempo real
     this.inscricao = this.usuarioService.usuario$.subscribe(dados => {
@@ -70,4 +75,8 @@ export class PerfilPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.inscricao.unsubscribe();
   }
+  async realizarLogout() {
+  await this.authService.logout();
+  this.router.navigate(['/login']);
+}
 }
